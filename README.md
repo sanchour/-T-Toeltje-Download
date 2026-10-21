@@ -22,7 +22,7 @@ De .exe-bestanden staan **niet op GitHub**, maar op OneDrive of Google Drive. De
    };
    ```
    Een link naar één bestand op Google Drive wordt vanzelf een directe download. Een OneDrive-link opent de OneDrive-pagina met een knop Downloaden.
-   Een link naar een **map** mag ook (nu zo ingesteld): de knop opent de map en zegt welk bestand je moet kiezen (`FILES`).
+   Nu staan er twee OneDrive-links naar losse bestanden. Een link naar een **map** mag ook: de knop opent de map en zegt welk bestand je moet kiezen (`FILES`).
    Zolang een link leeg is, toont de knop "Link volgt binnenkort".
 4. Maak op GitHub een **openbare** repo `-T-Toeltje-Download` (leeg), en push deze map.
 5. Settings → Pages → Branch `main`, map `/ (root)` → Save.
