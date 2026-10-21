@@ -5,102 +5,221 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>T Toeltje downloaden</title>
 <meta name="description" content="T Toeltje van Alexander Impact: samen in kaart brengen wat werkt. Desktop-app voor Windows en Mac.">
+<meta name="theme-color" content="#F4ECE2">
 <link rel="icon" href="img/icon-192.png">
+<link rel="preload" href="img/overzicht.webp" as="image" type="image/webp">
 <style>
 @font-face{font-family:"DM Serif Text";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/dm-serif-text-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Titillium Web";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/titillium-web-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Titillium Web";font-weight:600;font-style:normal;font-display:swap;src:url(fonts/titillium-web-latin-600-normal.woff2) format("woff2")}
 @font-face{font-family:"Titillium Web";font-weight:700;font-style:normal;font-display:swap;src:url(fonts/titillium-web-latin-700-normal.woff2) format("woff2")}
 :root{
- --cream:#F4ECE2;--paper:#FFFFFF;--ink:#0A0A0A;--ink-2:#3A3A38;--muted:#6E6A64;--line:rgba(10,10,10,.12);
- --green:#0B5A34;--green-2:#0E6F41;--coral:#EE6A57;
- --serif:"DM Serif Text",Georgia,serif;--sans:"Titillium Web","Segoe UI",system-ui,sans-serif}
+ --cream:#F4ECE2;--cream-2:#EDE3D6;--paper:#FFFFFF;--ink:#0A0A0A;--ink-2:#3A3A38;--muted:#6E6A64;--line:rgba(10,10,10,.12);
+ --green:#0B5A34;--green-2:#0E6F41;--green-ink:#073D23;--coral:#EE6A57;--lilac:#9A8CC0;--blue:#4EA8DA;
+ --serif:"DM Serif Text",Georgia,serif;--sans:"Titillium Web","Segoe UI",system-ui,sans-serif;
+ --ease:cubic-bezier(.2,.7,.2,1)}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{margin:0;background:var(--cream);color:var(--ink);font:400 17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip;
+ background:var(--cream) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .045 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit}
-a:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:999px}
-h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;line-height:1.05;letter-spacing:-.01em}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:12px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;line-height:1.04;letter-spacing:-.015em}
+p{margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+.kicker{display:inline-block;font:700 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.draw{position:relative;white-space:nowrap}
+.draw svg{position:absolute;pointer-events:none;overflow:visible}
+.under svg{left:-2%;bottom:-.14em;width:104%;height:.3em}
+.ring svg{left:-12%;top:-22%;width:124%;height:144%}
 
-.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+/* bar */
+.bar{position:sticky;top:0;z-index:20;transition:background .3s,box-shadow .3s}
+.bar.solid{background:rgba(244,236,226,.86);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);box-shadow:0 1px 0 var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
 .brand img{width:30px;height:30px}
 .brand span{font:400 22px/1 var(--serif)}
-.bar nav a{font-size:15px;font-weight:600;color:var(--ink-2);text-decoration:none;border-bottom:1.5px solid var(--line);padding-bottom:2px}
-.bar nav a:hover{color:var(--ink);border-color:var(--ink)}
+.bar nav{display:flex;align-items:center;gap:26px}
+.bar nav a{font-size:15px;font-weight:600;color:var(--ink-2);text-decoration:none}
+.bar nav a:hover{color:var(--ink)}
+.bar nav .pill{padding:8px 16px;border-radius:999px;border:1.5px solid var(--ink);color:var(--ink)}
+.bar nav .pill:hover{background:var(--ink);color:#fff}
 
-.hero{text-align:center;padding:72px 0 0}
-.hero h1{font-size:clamp(44px,6.4vw,84px)}
-.mark{position:relative;white-space:nowrap}
-.mark svg{position:absolute;left:-2%;bottom:-.14em;width:104%;height:.32em;overflow:visible}
-.lead{font-size:19px;color:var(--ink-2);max-width:34em;margin:26px auto 36px}
-
+/* hero */
+.hero{position:relative;text-align:center;padding:76px 0 0}
+.hero::before{content:"";position:absolute;inset:-120px 0 auto;height:820px;z-index:-1;pointer-events:none;
+ background:radial-gradient(520px 360px at 18% 34%,rgba(238,106,87,.16),transparent 70%),radial-gradient(560px 380px at 84% 22%,rgba(11,90,52,.13),transparent 70%),radial-gradient(520px 300px at 50% 80%,rgba(154,140,192,.14),transparent 70%);
+ -webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 8px;border-radius:999px;background:rgba(255,255,255,.7);border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink-2)}
+.badge b{background:var(--green);color:#fff;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+.hero h1{font-size:clamp(46px,7.2vw,96px);margin:26px auto 0;max-width:12em}
+.lead{font-size:clamp(17px,1.6vw,20px);color:var(--ink-2);max-width:33em;margin:28px auto 38px}
 .ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
-.btn{display:inline-flex;align-items:center;gap:12px;min-width:250px;padding:14px 26px 14px 20px;border-radius:999px;text-decoration:none;text-align:left;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
+.btn{display:inline-flex;align-items:center;gap:12px;min-width:250px;padding:14px 26px 14px 20px;border-radius:999px;text-decoration:none;text-align:left;transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s}
 .btn svg{flex:none}
-.btn b{display:block;font-size:17px;font-weight:700}
+.btn b{display:block;font-size:17px;font-weight:700;line-height:1.2}
 .btn small{display:block;font-size:13px;font-weight:600;opacity:.75}
-.win{background:var(--green);color:#fff;box-shadow:0 5px 0 #073D23}
-.win:hover{background:var(--green-2);transform:translateY(-1px)}
-.win:active{transform:translateY(4px);box-shadow:0 1px 0 #073D23}
-.mac{background:var(--paper);color:var(--ink);box-shadow:0 5px 0 rgba(10,10,10,.85);outline:1.5px solid var(--ink);outline-offset:-1.5px}
-.mac:hover{transform:translateY(-1px)}
-.mac:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(10,10,10,.85)}
+.win{background:var(--green);color:#fff;box-shadow:0 5px 0 var(--green-ink)}
+.win:hover{background:var(--green-2);transform:translateY(-2px);box-shadow:0 7px 0 var(--green-ink)}
+.win:active{transform:translateY(4px);box-shadow:0 1px 0 var(--green-ink)}
+.mac{background:var(--paper);color:var(--ink);box-shadow:0 5px 0 var(--ink);outline:1.5px solid var(--ink);outline-offset:-1.5px}
+.mac:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--ink)}
+.mac:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
 .btn.off,.btn.off:hover,.btn.off:active{background:transparent;color:var(--muted);box-shadow:none;outline:1.5px dashed var(--muted);transform:none;cursor:default}
-.meta{margin:22px 0 0;font-size:14px;color:var(--muted)}
+.meta{margin-top:22px;font-size:14px;color:var(--muted)}
 .meta a{color:var(--ink-2);font-weight:600}
 .meta a.off{color:var(--muted);text-decoration:none;font-weight:400}
 
-.shot{max-width:1040px;margin:64px auto 0;border-radius:16px;overflow:hidden;background:var(--paper);box-shadow:0 40px 80px -40px rgba(10,10,10,.45),0 0 0 1px var(--line)}
-.shot .top{display:flex;gap:7px;align-items:center;height:30px;padding:0 14px;background:#EDE3D6;border-bottom:1px solid var(--line)}
-.shot .top i{width:10px;height:10px;border-radius:50%;background:rgba(10,10,10,.16)}
+.stage{position:relative;max-width:1100px;margin:70px auto 0}
+.frame{position:relative;border-radius:16px;overflow:hidden;background:var(--paper);box-shadow:0 50px 100px -40px rgba(10,10,10,.42),0 18px 36px -24px rgba(10,10,10,.3),0 0 0 1px var(--line)}
+.frame .top{display:flex;gap:7px;align-items:center;height:30px;padding:0 14px;background:var(--cream-2);border-bottom:1px solid var(--line)}
+.frame .top i{width:10px;height:10px;border-radius:50%;background:rgba(10,10,10,.16)}
+.frame button{all:unset;display:block;cursor:zoom-in;width:100%}
+.frame button:focus-visible{outline:3px solid var(--coral);outline-offset:-3px}
+.stage .note{position:absolute;right:-34px;top:-30px;transform:rotate(5deg);font:400 21px/1.15 var(--serif);color:var(--ink);background:var(--coral);padding:12px 16px;border-radius:14px;box-shadow:0 6px 0 rgba(10,10,10,.16);max-width:210px;text-align:left}
 
-.install{padding:120px 0 96px}
-.install h2{text-align:center;font-size:clamp(34px,4vw,48px);margin-bottom:40px}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:880px;margin:0 auto}
-.col{background:var(--paper);border-radius:20px;padding:28px 30px 30px;border:1px solid var(--line)}
-.col h3{font-size:26px;display:flex;align-items:center;gap:10px;margin-bottom:18px}
-.col ol{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
-.col li{counter-increment:s;position:relative;padding-left:40px;color:var(--ink-2);font-size:16px}
-.col li::before{content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--ink);font:400 15px/24px var(--serif);text-align:center;color:var(--ink)}
+/* numbers */
+.numbers{padding:96px 0 0}
+.nums{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.num{padding:30px 26px 28px;border-left:1px solid var(--line)}
+.num:first-child{border-left:0}
+.num b{display:block;font:400 clamp(40px,4.6vw,60px)/1 var(--serif);letter-spacing:-.02em}
+.num span{display:block;margin-top:10px;font-size:15px;color:var(--ink-2)}
+
+/* what */
+.what{padding:130px 0 40px;text-align:center}
+.what h2{font-size:clamp(32px,4.4vw,58px);max-width:15em;margin:22px auto 0}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:72px;text-align:left}
+.pillar{padding:28px 28px 30px;border-radius:22px;background:rgba(255,255,255,.62);border:1px solid var(--line)}
+.pillar .ic{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--ink);margin-bottom:22px}
+.pillar h3{font-size:28px;margin-bottom:8px}
+.pillar p{color:var(--ink-2);font-size:16px}
+
+/* examples */
+.examples{padding:110px 0 30px}
+.examples>.wrap>header{text-align:center;margin-bottom:84px}
+.examples>.wrap>header h2{font-size:clamp(36px,4.6vw,60px);margin-top:18px}
+.ex{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;align-items:center;margin-bottom:130px}
+.ex:nth-of-type(even){grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.ex:nth-of-type(even) .copy{order:2}
+.ex .no{font:400 18px/1 var(--serif);color:var(--coral);display:flex;align-items:center;gap:12px}
+.ex .no::after{content:"";width:46px;height:1.5px;background:var(--coral)}
+.ex h3{font-size:clamp(32px,3.4vw,46px);margin:18px 0 18px}
+.ex p{color:var(--ink-2);font-size:18px;max-width:26em}
+.ex .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.ex .tags span{font:700 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.7);color:var(--ink-2)}
+.ex .shot{position:relative}
+.ex .frame{transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.ex .frame:hover{transform:translateY(-4px)}
+.hand{position:absolute;font:400 22px/1.1 var(--serif);color:var(--ink);display:flex;align-items:flex-end;gap:6px;pointer-events:none}
+.hand svg{overflow:visible}
+.hand.h1{right:-12px;top:-58px}
+.hand.h2{right:4%;top:-58px}
+
+/* install */
+.install{padding:60px 0 120px}
+.install header{text-align:center;margin-bottom:44px}
+.install h2{font-size:clamp(36px,4.2vw,54px);margin-top:18px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:0 auto}
+.col{background:var(--paper);border-radius:22px;padding:30px 32px 32px;border:1px solid var(--line)}
+.col h3{font-size:28px;display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.col ol{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+.col li{counter-increment:s;position:relative;padding-left:42px;color:var(--ink-2);font-size:16px}
+.col li::before{content:counter(s);position:absolute;left:0;top:0;width:27px;height:27px;border-radius:50%;border:1.5px solid var(--ink);font:400 15px/25px var(--serif);text-align:center;color:var(--ink)}
 .col li b{color:var(--ink);font-weight:600}
-.col .soon{margin:0;color:var(--muted);font-size:16px}
+.col .soon{color:var(--muted);font-size:16px}
 .col .soon a{color:var(--ink-2);font-weight:600}
 
-footer{text-align:center;padding:0 0 48px;font-size:14px;color:var(--muted)}
+/* band */
+.band{margin:0 auto 34px;max-width:1160px;padding:0 28px}
+.band>div{position:relative;overflow:hidden;border-radius:30px;background:var(--green);color:var(--cream);text-align:center;padding:92px 28px}
+.band>div::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(480px 300px at 12% 10%,rgba(238,106,87,.32),transparent 70%),radial-gradient(520px 320px at 92% 100%,rgba(78,168,218,.22),transparent 70%)}
+.band h2{position:relative;font-size:clamp(34px,4.8vw,62px);max-width:13em;margin:0 auto 38px}
+.band .ctas{position:relative}
+.band .win{background:var(--cream);color:var(--green-ink);box-shadow:0 5px 0 rgba(0,0,0,.28)}
+.band .win:hover{background:#fff;box-shadow:0 7px 0 rgba(0,0,0,.28)}
+.band .mac{background:transparent;color:var(--cream);outline-color:var(--cream);box-shadow:0 5px 0 rgba(0,0,0,.28)}
+.band .btn.off{color:rgba(244,236,226,.7);outline-color:rgba(244,236,226,.55);box-shadow:none}
+
+footer{padding:26px 0 44px;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 footer a{color:var(--ink-2);font-weight:600}
 
-@media (max-width:720px){
- .wrap{padding:0 16px}
- .hero{padding-top:44px}
+/* zoom */
+dialog{border:0;padding:0;background:transparent;max-width:min(1400px,94vw);max-height:92vh}
+dialog::backdrop{background:rgba(10,10,10,.78);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+dialog img{max-height:88vh;width:auto;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.5);cursor:zoom-out}
+dialog p{color:#fff;text-align:center;margin-top:12px;font-size:15px}
+
+/* reveal */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+
+@media (max-width:900px){
+ .bar nav a:not(.pill){display:none}
+ .nums{grid-template-columns:1fr 1fr}
+ .num:nth-child(3){border-left:0}
+ .num:nth-child(n+3){border-top:1px solid var(--line)}
+ .pillars{grid-template-columns:1fr}
+ .ex,.ex:nth-of-type(even){grid-template-columns:1fr;gap:34px;margin-bottom:96px}
+ .ex:nth-of-type(even) .copy{order:0}
+ .stage .note{right:8px;top:-34px}
+ .hand{display:none}
+}
+@media (max-width:640px){
+ .wrap,.band{padding:0 16px}
+ .hero{padding-top:46px}
  .btn{width:100%;min-width:0}
- .shot{margin-top:44px;border-radius:12px}
- .install{padding:80px 0 64px}
+ .stage{margin-top:52px}
+ .stage .note{display:none}
+ .frame{border-radius:12px}
+ .frame .top{height:22px}
+ .frame .top i{width:7px;height:7px}
+ .numbers{padding-top:64px}
+ .num{padding:22px 16px}
+ .what{padding-top:90px}
+ .pillars{margin-top:44px}
+ .examples{padding-top:80px}
+ .examples>.wrap>header{margin-bottom:56px}
  .cols{grid-template-columns:1fr}
  .col{padding:24px 22px}
+ .band>div{padding:64px 20px;border-radius:24px}
+ footer .wrap{justify-content:center;text-align:center}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ *{transition:none!important}
+ .js .reveal{opacity:1;transform:none}
+}
 </style>
+<script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
 
-<header class="bar">
+<header class="bar" id="bar">
  <div class="wrap">
   <a class="brand" href="./"><img src="img/logo.svg" alt=""><span>T Toeltje</span></a>
-  <nav><a href="https://sanchour.github.io/-T-Toeltje/ui_kits/kaartdashboard/index.html">Webversie</a></nav>
+  <nav aria-label="Op deze pagina">
+   <a href="#wat">Wat is het</a>
+   <a href="#voorbeelden">Voorbeelden</a>
+   <a href="#installeren">Installeren</a>
+   <a class="pill" href="https://sanchour.github.io/-T-Toeltje/ui_kits/kaartdashboard/index.html">Webversie</a>
+  </nav>
  </div>
 </header>
 
 <main>
 <section class="hero">
  <div class="wrap">
-  <h1>Samen in kaart brengen <span class="mark">wat werkt.<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 40 5, 90 4, 120 9 S 175 15, 197 7" fill="none" stroke="#EE6A57" stroke-width="5" stroke-linecap="round"/></svg></span></h1>
-  <p class="lead">Kaarten, cijfers en werksessies van Alexander Impact in één app. Werkt ook zonder internet.</p>
-  <div class="ctas">
+  <span class="badge reveal"><b>Nieuw</b>Desktop-app voor Windows en Mac</span>
+  <h1 class="reveal">Samen in kaart brengen <span class="draw under">wat werkt.<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 40 5, 90 4, 120 9 S 175 15, 197 7" fill="none" stroke="#EE6A57" stroke-width="5" stroke-linecap="round"/></svg></span></h1>
+  <p class="lead reveal">T Toeltje zet onderzoek, cijfers en ervaringen over vapen en schermgebruik op één kaart. Van Europa tot Oost-Groningen. Ook zonder internet.</p>
+  <div class="ctas reveal">
    <a class="btn win" href="#installeren" data-dl="setup">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M2 4.5 10 3.4v7.8H2zm9-1.2L22 2v9.2H11zM2 12.6h8v7.9l-8-1.1zm9 0h11V22l-11-1.5z"/></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 4.5 10 3.4v7.8H2zm9-1.2L22 2v9.2H11zM2 12.6h8v7.9l-8-1.1zm9 0h11V22l-11-1.5z"/></svg>
     <span><b>Download voor Windows</b><small>Windows 10 en 11</small></span>
    </a>
    <a class="btn mac" href="#installeren" data-dl="mac">
@@ -108,28 +227,98 @@ footer a{color:var(--ink-2);font-weight:600}
     <span><b>Download voor Mac</b><small>Apple-chip en Intel</small></span>
    </a>
   </div>
-  <p class="meta">Versie 1.0.0 · <a href="#installeren" data-dl="portable">Windows zonder installeren</a></p>
-  <div class="shot">
-   <div class="top"><i></i><i></i><i></i></div>
-   <img src="img/app-overzicht.jpg" width="1600" height="870" alt="Het Overzicht van T Toeltje met kaarten, diagrammen en Sociale Labs">
+  <p class="meta reveal">Versie 1.0.0 · <a href="#installeren" data-dl="portable">Windows zonder installeren</a></p>
+  <div class="stage reveal">
+   <div class="frame">
+    <div class="top"><i></i><i></i><i></i></div>
+    <button type="button" data-zoom aria-label="Vergroot: het Overzicht"><img src="img/overzicht.webp" width="2400" height="1500" fetchpriority="high" alt="Het Overzicht van T Toeltje: thema's met kaarten van Europa, Nederland en Groningen"></button>
+   </div>
+   <p class="note" aria-hidden="true">Werkt ook zonder wifi in de werksessie</p>
   </div>
+ </div>
+</section>
+
+<section class="numbers" aria-label="T Toeltje in cijfers">
+ <div class="wrap">
+  <div class="nums reveal">
+   <div class="num"><b>879</b><span>initiatieven in kaart</span></div>
+   <div class="num"><b>126</b><span>diagrammen en dashboards</span></div>
+   <div class="num"><b>3</b><span>niveaus: Europa, Nederland en Groningen</span></div>
+   <div class="num"><b>Offline</b><span>alles werkt zonder internet</span></div>
+  </div>
+ </div>
+</section>
+
+<section class="what" id="wat">
+ <div class="wrap">
+  <span class="kicker reveal">Wat is T Toeltje?</span>
+  <h2 class="reveal">Eén plek waar je <span class="draw ring">samen<svg viewBox="0 0 160 60" preserveAspectRatio="none" aria-hidden="true"><path d="M22 10 C 60 -2, 140 2, 154 24 C 166 46, 110 58, 64 56 C 18 54, -2 40, 8 24 C 14 14, 34 8, 52 7" fill="none" stroke="#EE6A57" stroke-width="2.6" stroke-linecap="round"/></svg></span> ziet wat werkt, waar het werkt en wat nog getoetst moet worden.</h2>
+  <div class="pillars">
+   <div class="pillar reveal"><div class="ic" style="background:#DCEBF5"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.7" stroke-linejoin="round"><path d="M3 6.5 8.5 4l7 2.5L21 4v13.5L15.5 20l-7-2.5L3 20z"/><path d="M8.5 4v13.5M15.5 6.5V20"/></svg></div><h3>Zien</h3><p>Kaarten en diagrammen laten in één oogopslag zien wat er gebeurt, van Europa tot je eigen gemeente.</p></div>
+   <div class="pillar reveal"><div class="ic" style="background:#F9D9D2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11v8H9l-4 3v-3H4z"/><path d="M15 9h5v7h-1v3l-4-3h-4v-3"/></svg></div><h3>Bespreken</h3><p>Zet niveaus naast elkaar en bespreek aan tafel waar ze verschillen. De vragen staan er al bij.</p></div>
+   <div class="pillar reveal"><div class="ic" style="background:#F6E7C8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 13l2 2 4-4"/></svg></div><h3>Doen</h3><p>Plan een werksessie, print werkbladen die zichzelf vullen en houd bij wat werkt.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="examples" id="voorbeelden">
+ <div class="wrap">
+  <header class="reveal"><span class="kicker">Voorbeelden</span><h2>Zo ziet het eruit</h2></header>
+
+  <article class="ex">
+   <div class="copy reveal">
+    <span class="no">01 · Kaart</span>
+    <h3>Klik op een land en lees het verhaal.</h3>
+    <p>De kaart van Europa kleurt op het aantal initiatieven. Klik op Ierland en je ziet de 25 initiatieven, de stand van zaken en de cijfers.</p>
+    <div class="tags"><span>Europa</span><span>Nederland</span><span>Groningen</span></div>
+   </div>
+   <div class="shot reveal">
+    <div class="frame"><div class="top"><i></i><i></i><i></i></div><button type="button" data-zoom aria-label="Vergroot: kaart van Europa"><img src="img/kaart-europa.webp" width="2000" height="1250" loading="lazy" decoding="async" alt="Kaart van Europa gekleurd op aantal initiatieven, met rechts het paneel van Ierland: 25 initiatieven"></button></div>
+    <span class="hand h1" aria-hidden="true">klik op een land<svg width="54" height="44" viewBox="0 0 54 44"><path d="M4 4 C 22 6, 40 16, 46 38" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round"/><path d="M38 31 L46 39 L50 28" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+   </div>
+  </article>
+
+  <article class="ex">
+   <div class="copy reveal">
+    <span class="no">02 · Vergelijken</span>
+    <h3>Drie niveaus naast elkaar.</h3>
+    <p>Europa, Nederland en Groningen op één scherm. Met een vraag om samen te bespreken: zie je landelijk hetzelfde als wat gemeenten zelf zien?</p>
+    <div class="tags"><span>Werksessie</span><span>Bespreek samen</span></div>
+   </div>
+   <div class="shot reveal">
+    <div class="frame"><div class="top"><i></i><i></i><i></i></div><button type="button" data-zoom aria-label="Vergroot: vergelijken"><img src="img/vergelijken.webp" width="2000" height="1250" loading="lazy" decoding="async" alt="Vergelijken: kaarten van Europa, Nederland en Groningen naast elkaar, met wat opvalt en een vraag om te bespreken"></button></div>
+    <span class="hand h2" aria-hidden="true">de vraag voor aan tafel<svg width="54" height="44" viewBox="0 0 54 44"><path d="M4 4 C 22 6, 40 16, 46 38" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round"/><path d="M38 31 L46 39 L50 28" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+   </div>
+  </article>
+
+  <article class="ex">
+   <div class="copy reveal">
+    <span class="no">03 · Diagram</span>
+    <h3>Het verhaal in één lijn.</h3>
+    <p>Sinds 2021 starten er veel meer initiatieven. Kies uit 126 diagrammen en laat ze zien op het grote scherm.</p>
+    <div class="tags"><span>Presenteren</span><span>Poster</span></div>
+   </div>
+   <div class="shot reveal">
+    <div class="frame"><div class="top"><i></i><i></i><i></i></div><button type="button" data-zoom aria-label="Vergroot: diagram"><img src="img/diagram-startjaar.webp" width="2000" height="1250" loading="lazy" decoding="async" alt="Lijndiagram: initiatieven per startjaar, met een sterke stijging vanaf 2021"></button></div>
+   </div>
+  </article>
  </div>
 </section>
 
 <section class="install" id="installeren">
  <div class="wrap">
-  <h2>Installeren</h2>
+  <header class="reveal"><span class="kicker">Installeren</span><h2>In twee minuten klaar</h2></header>
   <div class="cols">
-   <div class="col">
-    <h3>Windows</h3>
+   <div class="col reveal">
+    <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 4.5 10 3.4v7.8H2zm9-1.2L22 2v9.2H11zM2 12.6h8v7.9l-8-1.1zm9 0h11V22l-11-1.5z"/></svg>Windows</h3>
     <ol>
      <li>Klik op <b>Download voor Windows</b> en daarna op OneDrive op <b>Downloaden</b>.</li>
      <li>Open het bestand. Blauw venster? Kies <b>Meer informatie</b> en <b>Toch uitvoeren</b>.</li>
      <li>Klik op <b>Installeren</b>. Je vindt T Toeltje op je bureaublad.</li>
     </ol>
    </div>
-   <div class="col">
-    <h3>Mac</h3>
+   <div class="col reveal">
+    <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>Mac</h3>
     <ol data-mac="klaar" hidden>
      <li>Klik op <b>Download voor Mac</b> en daarna op OneDrive op <b>Downloaden</b>.</li>
      <li>Open <b>T-Toeltje.dmg</b> en sleep T Toeltje naar <b>Apps</b>.</li>
@@ -140,9 +329,32 @@ footer a{color:var(--ink-2);font-weight:600}
   </div>
  </div>
 </section>
+
+<section class="band" aria-label="Downloaden">
+ <div class="reveal">
+  <h2>Klaar voor de volgende werksessie?</h2>
+  <div class="ctas">
+   <a class="btn win" href="#installeren" data-dl="setup">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 4.5 10 3.4v7.8H2zm9-1.2L22 2v9.2H11zM2 12.6h8v7.9l-8-1.1zm9 0h11V22l-11-1.5z"/></svg>
+    <span><b>Download voor Windows</b><small>Windows 10 en 11</small></span>
+   </a>
+   <a class="btn mac" href="#installeren" data-dl="mac">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>
+    <span><b>Download voor Mac</b><small>Apple-chip en Intel</small></span>
+   </a>
+  </div>
+ </div>
+</section>
 </main>
 
-<footer>Alexander Impact · <a href="https://sanchour.github.io/-T-Toeltje/ui_kits/kaartdashboard/index.html">Webversie</a></footer>
+<footer>
+ <div class="wrap">
+  <span>Een product van Alexander Impact · versie 1.0.0</span>
+  <a href="https://sanchour.github.io/-T-Toeltje/ui_kits/kaartdashboard/index.html">Open de webversie</a>
+ </div>
+</footer>
+
+<dialog id="zoom" aria-label="Vergrote afbeelding"><img alt=""><p>Klik of druk op Esc om te sluiten</p></dialog>
 
 <script>
 // The download links live only here. Paste the share link from OneDrive or Google Drive ("Iedereen met de link") between the quotes.
@@ -173,6 +385,29 @@ var DOWNLOADS = {
   var mac = ok("mac");
   document.querySelector('[data-mac="klaar"]').hidden = !mac;
   document.querySelector('[data-mac="binnenkort"]').hidden = mac;
+
+  // The top bar gets a background once you scroll.
+  var bar = document.getElementById("bar");
+  function onScroll() { bar.classList.toggle("solid", window.scrollY > 8); }
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  // Blocks fade in when they come into view; without IntersectionObserver everything is simply visible.
+  var items = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+    items.forEach(function (el) { io.observe(el); });
+  } else items.forEach(function (el) { el.classList.add("in"); });
+
+  // Click a screenshot to see it large.
+  var dlg = document.getElementById("zoom"), big = dlg.querySelector("img");
+  document.querySelectorAll("[data-zoom]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var img = b.querySelector("img");
+      if (!dlg.showModal) { window.open(img.src, "_blank", "noopener"); return; }
+      big.src = img.src; big.alt = img.alt; dlg.showModal();
+    });
+  });
+  dlg.addEventListener("click", function () { dlg.close(); });
 })();
 </script>
 </body>

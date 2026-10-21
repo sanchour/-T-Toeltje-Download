@@ -45,4 +45,4 @@ Zet de deellink bij `DOWNLOADS` als `mac: "…"`. De Mac-knop en de Mac-stappen 
 
 - `index.html`: de hele pagina (stijl en downloadlinks staan erin).
 - `fonts/`: DM Serif Text en Titillium Web, zelf gehost.
-- `img/`: logo, pictogram en één schermafbeelding van de app.
+- `img/`: logo, pictogram en vier schermafbeeldingen van de app (WebP). Nieuwe maken: open de app, maak een schermafbeelding van 1440×900 en zet hem om naar WebP.
