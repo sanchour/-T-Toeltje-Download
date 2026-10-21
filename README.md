@@ -3,34 +3,44 @@
 De downloadpagina van de desktop-app T Toeltje (Alexander Impact).
 De pagina staat op GitHub Pages: https://sanchour.github.io/T-Toeltje-download/
 
-De app zelf wordt gebouwd in de repo `-T-Toeltje` (branch `desktop-app`, `npm run maak-windows`).
-De .exe-bestanden staan **niet** in deze repo, maar bij **Releases**. De knoppen op de pagina wijzen altijd naar de nieuwste release:
+Twee repo's:
 
-- `https://github.com/sanchour/T-Toeltje-download/releases/latest/download/T-Toeltje-Setup.exe`
-- `https://github.com/sanchour/T-Toeltje-download/releases/latest/download/T-Toeltje-portable.exe`
-- later voor de Mac: `.../releases/latest/download/T-Toeltje.dmg`
+- `-T-Toeltje`: de tool zelf en de webversie (https://sanchour.github.io/-T-Toeltje/). Daar bouw je ook de .exe (`npm run maak-windows`, uitkomst in `release/`).
+- `T-Toeltje-download` (deze): alleen deze pagina.
+
+De .exe-bestanden staan **niet op GitHub**, maar op OneDrive of Google Drive. De pagina linkt ernaar.
 
 ## Eenmalig instellen
 
-1. Maak op GitHub een **openbare** repo `T-Toeltje-download` (leeg, zonder README).
-2. Zet deze map erin (`git push`).
-3. Settings → Pages → Branch `main`, map `/ (root)` → Save.
+1. Zet `T-Toeltje-Setup.exe` en `T-Toeltje-portable.exe` (uit `-T-Toeltje/release/`) op OneDrive of Google Drive.
+2. Deel elk bestand: **Iedereen met de link** mag bekijken. Kopieer de link.
+3. Zet de twee links in `index.html`, helemaal onderaan bij `DOWNLOADS` (tussen de aanhalingstekens):
+   ```js
+   var DOWNLOADS = {
+     setup: "https://drive.google.com/file/d/.../view?usp=sharing",
+     portable: "https://drive.google.com/file/d/.../view?usp=sharing"
+   };
+   ```
+   Een Google Drive-link wordt vanzelf een directe download. Een OneDrive-link opent de OneDrive-pagina met een knop Downloaden.
+   Zolang een link leeg is, toont de knop "Link volgt binnenkort".
+4. Maak op GitHub een **openbare** repo `T-Toeltje-download` (leeg), en push deze map.
+5. Settings → Pages → Branch `main`, map `/ (root)` → Save.
 
 ## Een nieuwe versie uitbrengen
 
 1. Verhoog in `-T-Toeltje/package.json` het veld `version` (bijvoorbeeld 1.0.1) en bouw opnieuw: `npm run maak-windows`.
-2. Ga hier naar **Releases → Draft a new release**. Tag: `v1.0.1`. Titel: `T Toeltje 1.0.1`.
-3. Sleep `release/T-Toeltje-Setup.exe` en `release/T-Toeltje-portable.exe` erin. Houd precies deze bestandsnamen aan, anders werken de knoppen niet.
-4. Publish release. De knoppen wijzen meteen naar de nieuwe versie.
-5. Pas in `index.html` het versienummer aan (zoek op `1.0.0`, staat er twee keer in).
+2. Vervang de bestanden op dezelfde plek, zodat de link hetzelfde blijft:
+   - Google Drive: rechtermuisknop op het bestand → Bestandsgegevens → **Versies beheren** → Nieuwe versie uploaden.
+   - OneDrive: upload het nieuwe bestand met precies dezelfde naam in dezelfde map en kies **Vervangen**.
+3. Pas in `index.html` het versienummer aan (zoek op `1.0.0`, staat er twee keer in).
 
 ## Mac-versie toevoegen (later)
 
-Bouw op een Mac met `npm run maak-mac`; dat maakt `release/T-Toeltje.dmg`. Zet die bij dezelfde release.
-Vervang daarna in `index.html` het label "Mac · binnenkort" door een knop naar `releases/latest/download/T-Toeltje.dmg`.
+Bouw op een Mac met `npm run maak-mac`; dat maakt `release/T-Toeltje.dmg`. Zet die ook op OneDrive of Drive.
+Vervang daarna in `index.html` het label "Mac · binnenkort" door een knop met `data-dl="mac"` en zet de link bij `DOWNLOADS` als `mac: "…"`.
 
 ## Inhoud
 
-- `index.html`: de hele pagina (stijl staat erin).
+- `index.html`: de hele pagina (stijl en downloadlinks staan erin).
 - `fonts/`: DM Serif Text en Titillium Web, zelf gehost.
 - `img/`: logo en schermafbeeldingen van de app.
