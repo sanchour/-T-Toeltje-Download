@@ -23,7 +23,7 @@ De .exe-bestanden staan **niet op GitHub**, maar op OneDrive of Google Drive. De
    ```
    Een link naar één bestand op Google Drive wordt vanzelf een directe download. Een OneDrive-link opent de OneDrive-pagina met een knop Downloaden.
    Nu staan er twee OneDrive-links naar losse bestanden. Een link naar een **map** mag ook: de knop opent de map en zegt welk bestand je moet kiezen (`FILES`).
-   Zolang een link leeg is, toont de knop "Link volgt binnenkort".
+   Zolang een link leeg is, toont de knop "Binnenkort".
 4. Maak op GitHub een **openbare** repo `-T-Toeltje-Download` (leeg), en push deze map.
 5. Settings → Pages → Branch `main`, map `/ (root)` → Save.
 
@@ -44,4 +44,4 @@ Vervang daarna in `index.html` het label "Mac · binnenkort" door een knop met `
 
 - `index.html`: de hele pagina (stijl en downloadlinks staan erin).
 - `fonts/`: DM Serif Text en Titillium Web, zelf gehost.
-- `img/`: logo en schermafbeeldingen van de app.
+- `img/`: logo, pictogram en één schermafbeelding van de app.
