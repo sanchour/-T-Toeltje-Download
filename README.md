@@ -35,10 +35,11 @@ De .exe-bestanden staan **niet op GitHub**, maar op OneDrive of Google Drive. De
    - OneDrive: upload het nieuwe bestand met precies dezelfde naam in dezelfde map en kies **Vervangen**.
 3. Pas in `index.html` het versienummer aan (zoek op `1.0.0`, staat er twee keer in).
 
-## Mac-versie toevoegen (later)
+## Mac-versie
 
-Bouw op een Mac met `npm run maak-mac`; dat maakt `release/T-Toeltje.dmg`. Zet die ook op OneDrive of Drive.
-Vervang daarna in `index.html` het label "Mac · binnenkort" door een knop met `data-dl="mac"` en zet de link bij `DOWNLOADS` als `mac: "…"`.
+De Mac-app (`T-Toeltje.dmg`, voor Apple-chip en Intel) bouwt GitHub op een Mac: repo `-T-Toeltje` → **Actions** → **Mac-app bouwen**.
+Download onder **Artifacts** het bestand `T-Toeltje-mac`, pak het uit en zet `T-Toeltje.dmg` op OneDrive naast de Windows-bestanden.
+Zet de deellink bij `DOWNLOADS` als `mac: "…"`. De Mac-knop en de Mac-stappen verschijnen dan vanzelf.
 
 ## Inhoud
 
