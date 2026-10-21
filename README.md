@@ -1,12 +1,12 @@
 # T Toeltje downloaden
 
 De downloadpagina van de desktop-app T Toeltje (Alexander Impact).
-De pagina staat op GitHub Pages: https://sanchour.github.io/T-Toeltje-download/
+De pagina staat op GitHub Pages: https://sanchour.github.io/-T-Toeltje-Download/
 
 Twee repo's:
 
 - `-T-Toeltje`: de tool zelf en de webversie (https://sanchour.github.io/-T-Toeltje/). Daar bouw je ook de .exe (`npm run maak-windows`, uitkomst in `release/`).
-- `T-Toeltje-download` (deze): alleen deze pagina.
+- `-T-Toeltje-Download` (deze): alleen deze pagina.
 
 De .exe-bestanden staan **niet op GitHub**, maar op OneDrive of Google Drive. De pagina linkt ernaar.
 
@@ -21,9 +21,10 @@ De .exe-bestanden staan **niet op GitHub**, maar op OneDrive of Google Drive. De
      portable: "https://drive.google.com/file/d/.../view?usp=sharing"
    };
    ```
-   Een Google Drive-link wordt vanzelf een directe download. Een OneDrive-link opent de OneDrive-pagina met een knop Downloaden.
+   Een link naar één bestand op Google Drive wordt vanzelf een directe download. Een OneDrive-link opent de OneDrive-pagina met een knop Downloaden.
+   Een link naar een **map** mag ook (nu zo ingesteld): de knop opent de map en zegt welk bestand je moet kiezen (`FILES`).
    Zolang een link leeg is, toont de knop "Link volgt binnenkort".
-4. Maak op GitHub een **openbare** repo `T-Toeltje-download` (leeg), en push deze map.
+4. Maak op GitHub een **openbare** repo `-T-Toeltje-Download` (leeg), en push deze map.
 5. Settings → Pages → Branch `main`, map `/ (root)` → Save.
 
 ## Een nieuwe versie uitbrengen

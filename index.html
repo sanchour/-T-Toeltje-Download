@@ -200,7 +200,7 @@ footer .brand span{font-size:20px}
   <div class="head"><span class="kicker">Installeren</span><h2>Zo zet je T Toeltje op je Windows-computer</h2><p>Dat duurt ongeveer twee minuten. Je hebt Windows 10 of 11 (64-bit) nodig en ongeveer 400 MB vrije ruimte.</p></div>
   <div class="install">
    <ol class="steps">
-    <li><b>Download het installatieprogramma</b><span>Klik bovenaan op <em>Download voor Windows</em>. Je krijgt het bestand <code>T-Toeltje-Setup.exe</code>. Zegt de pagina dat het bestand te groot is om op virussen te scannen, of zegt je browser dat het niet vaak wordt gedownload? Kies dan <span class="kbd">Toch downloaden</span> of <span class="kbd">Behouden</span>.</span></li>
+    <li><b>Download het installatieprogramma</b><span>Klik bovenaan op <em>Download voor Windows</em>. Kom je in een map op OneDrive? Klik daar op <code>T-Toeltje-Setup.exe</code> en dan op <span class="kbd">Downloaden</span>. Zegt de pagina dat het bestand te groot is om op virussen te scannen, of zegt je browser dat het niet vaak wordt gedownload? Kies dan <span class="kbd">Toch downloaden</span> of <span class="kbd">Behouden</span>.</span></li>
     <li><b>Open het bestand</b><span>Dubbelklik op het bestand in je map Downloads.</span></li>
     <li><b>Krijg je een blauw venster "Windows heeft uw pc beveiligd"?</b><span>Klik op <span class="kbd">Meer informatie</span> en daarna op <span class="kbd">Toch uitvoeren</span>. Hieronder lees je waarom.</span></li>
     <li><b>Kies waar de app komt</b><span>De voorgestelde map is prima. Klik op <span class="kbd">Installeren</span>.</span></li>
@@ -258,9 +258,10 @@ footer .brand span{font-size:20px}
 // The download links live only here. Paste the share link from OneDrive or Google Drive ("Iedereen met de link") between the quotes.
 // A Google Drive link becomes a direct download; a OneDrive link opens the OneDrive page with a Download button. Empty = "Link volgt binnenkort".
 var DOWNLOADS = {
-  setup: "",
-  portable: ""
+  setup: "https://1drv.ms/f/c/4a8125c64b75c720/IgA85gVZV2VESYeOrvomv-YsAX9-fB6LLo78L1flAt-LKSM?e=6jaTgg",
+  portable: "https://1drv.ms/f/c/4a8125c64b75c720/IgA85gVZV2VESYeOrvomv-YsAX9-fB6LLo78L1flAt-LKSM?e=6jaTgg"
 };
+var FILES = { setup: "T-Toeltje-Setup.exe", portable: "T-Toeltje-portable.exe" };
 (function () {
   function direct(u) {
     var m = /drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:[^#]*&)?id=)([\w-]+)/.exec(u);
@@ -269,8 +270,17 @@ var DOWNLOADS = {
     return u;
   }
   document.querySelectorAll("[data-dl]").forEach(function (a) {
-    var u = String(DOWNLOADS[a.getAttribute("data-dl")] || "").trim();
-    if (/^https:\/\//.test(u)) { a.href = direct(u); a.rel = "noopener"; return; }
+    var k = a.getAttribute("data-dl"), u = String(DOWNLOADS[k] || "").trim();
+    if (/^https:\/\//.test(u)) {
+      a.href = direct(u); a.target = "_blank"; a.rel = "noopener";
+      // A shared folder (OneDrive /f/ or ?ithint=folder): say which file to pick there.
+      if (/1drv\.ms\/f\/|ithint=folder|drive\.google\.com\/drive\/folders\//.test(u)) {
+        a.title = "Opent de map op OneDrive of Drive. Kies daar " + FILES[k] + ".";
+        var t = a.querySelector("small");
+        if (t) t.textContent = "Opent de downloadmap · kies " + FILES[k] + " · ± 120 MB";
+      }
+      return;
+    }
     a.classList.add("off");
     a.setAttribute("aria-disabled", "true");
     a.removeAttribute("href");
