@@ -92,7 +92,7 @@ section{position:relative;isolation:isolate}
 
 .what{padding:150px 0 150px}
 .what h2{font-size:clamp(32px,4.6vw,64px);max-width:16em;margin-top:22px}
-.what h2 .w{color:var(--white)}
+.what h2 .w{color:var(--blauw)}
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:64px}
 .pillar{padding:28px 28px 30px;background:var(--white);border:3px solid var(--ink);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
 .pillar:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink)}
@@ -122,11 +122,11 @@ section{position:relative;isolation:isolate}
 
 .install{padding:140px 0 140px}
 .install header{margin-bottom:44px}
-.install h2{font-size:clamp(36px,5vw,68px);margin-top:18px}
+.install h2{font-size:clamp(36px,5vw,68px);margin-top:18px;color:var(--white)}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .col{background:var(--white);padding:30px 32px 32px;border:3px solid var(--ink)}
-.col:first-child{box-shadow:10px 10px 0 var(--blauw)}
-.col:last-child{box-shadow:10px 10px 0 var(--paars)}
+.col:first-child{box-shadow:10px 10px 0 var(--ink)}
+.col:last-child{box-shadow:10px 10px 0 var(--geel)}
 .col h3{font-size:28px;display:flex;align-items:center;gap:12px;margin-bottom:22px}
 .col ol{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
 .col li{counter-increment:s;position:relative;padding-left:46px;font-size:17px}
@@ -135,7 +135,7 @@ section{position:relative;isolation:isolate}
 .col .soon{font-size:17px}
 .col .soon a{font-weight:700}
 
-.band{padding:150px 0 120px;text-align:left}
+.band{padding:40px 0 120px;text-align:left}
 .band h2{font-size:clamp(36px,6vw,88px);color:var(--white);max-width:12em;margin-bottom:44px}
 .band h2 .bar-hl{color:var(--ink)}
 
@@ -207,7 +207,7 @@ dialog p{color:#fff;text-align:center;margin-top:12px;font-size:15px;font-weight
 </header>
 
 <main>
-<!-- data-bg: the page background while this block is in view. The script blends between them as you scroll. -->
+<!-- data-bg: the page background from this block on, until the next block with data-bg. Four colours: paars, geel, cyaan, blauw. -->
 <section class="hero" data-bg="#D366FF">
  <span class="shape circle" style="width:260px;height:260px;background:var(--cyaan);right:-90px;top:340px"></span>
  <span class="shape circle" style="width:90px;height:90px;background:var(--geel);left:46%;top:-30px"></span>
@@ -242,7 +242,7 @@ dialog p{color:#fff;text-align:center;margin-top:12px;font-size:15px;font-weight
  </div>
 </section>
 
-<section class="numbers" aria-label="T Toeltje in cijfers" data-bg="#FCF300">
+<section class="numbers" aria-label="T Toeltje in cijfers">
  <div class="wrap">
   <div class="nums reveal">
    <div class="num"><b>879</b><span>initiatieven in kaart</span></div>
@@ -253,7 +253,7 @@ dialog p{color:#fff;text-align:center;margin-top:12px;font-size:15px;font-weight
  </div>
 </section>
 
-<section class="what" id="wat" data-bg="#45C4E4">
+<section class="what" id="wat" data-bg="#FCF300">
  <div class="wrap">
   <span class="kicker bar-hl reveal">Wat is T Toeltje?</span>
   <h2 class="reveal">Eén plek waar je <span class="w">samen</span> ziet wat werkt, waar het werkt en wat nog getoetst moet worden.</h2>
@@ -265,11 +265,11 @@ dialog p{color:#fff;text-align:center;margin-top:12px;font-size:15px;font-weight
  </div>
 </section>
 
-<section class="ex-head" id="voorbeelden" data-bg="#D99CF6">
+<section class="ex-head" id="voorbeelden" data-bg="#45C4E4">
  <div class="wrap reveal"><span class="kicker bar-hl">Voorbeelden</span><h2>Zo ziet het eruit.</h2></div>
 </section>
 
-<article class="ex" data-bg="#D99CF6">
+<article class="ex">
  <div class="wrap">
   <div class="copy reveal">
    <span class="no">01 · Kaart</span>
@@ -284,7 +284,7 @@ dialog p{color:#fff;text-align:center;margin-top:12px;font-size:15px;font-weight
  </div>
 </article>
 
-<article class="ex flip" data-bg="#FF9E00">
+<article class="ex flip">
  <div class="wrap">
   <div class="copy reveal">
    <span class="no">02 · Vergelijken</span>
@@ -299,7 +299,7 @@ dialog p{color:#fff;text-align:center;margin-top:12px;font-size:15px;font-weight
  </div>
 </article>
 
-<article class="ex" data-bg="#FCF300">
+<article class="ex">
  <div class="wrap">
   <div class="copy reveal">
    <span class="no">03 · Diagram</span>
@@ -313,7 +313,7 @@ dialog p{color:#fff;text-align:center;margin-top:12px;font-size:15px;font-weight
  </div>
 </article>
 
-<section class="install" id="installeren" data-bg="#F0F0F0">
+<section class="install" id="installeren" data-bg="#5170FF">
  <div class="wrap">
   <header class="reveal"><span class="kicker bar-hl">Installeren</span><h2>In twee minuten klaar.</h2></header>
   <div class="cols">
@@ -338,7 +338,7 @@ dialog p{color:#fff;text-align:center;margin-top:12px;font-size:15px;font-weight
  </div>
 </section>
 
-<section class="band" aria-label="Downloaden" data-bg="#5170FF">
+<section class="band" aria-label="Downloaden">
  <span class="shape ell" style="right:-30px;top:60px;transform:rotate(174deg)"></span>
  <div class="wrap reveal">
   <h2>Klaar voor de volgende <span class="bar-hl">werksessie?</span></h2>
@@ -396,8 +396,8 @@ var DOWNLOADS = {
   document.querySelector('[data-mac="klaar"]').hidden = !mac;
   document.querySelector('[data-mac="binnenkort"]').hidden = mac;
 
-  // Scroll colours: every block with data-bg owns a background colour. Near the line between two blocks
-  // the page colour blends from one to the next, in step with the scroll position (no jump, no delay).
+  // Scroll colours: a block with data-bg starts a new background colour. When its top edge passes the middle of the screen,
+  // the page colour blends to it over a short stretch of scrolling (a quick, smooth switch instead of a jump).
   var root = document.documentElement, bar = document.getElementById("bar"), theme = document.querySelector('meta[name="theme-color"]');
   var stops = Array.prototype.slice.call(document.querySelectorAll("[data-bg]")).map(function (el) {
     var h = el.getAttribute("data-bg").replace("#", "");
@@ -407,12 +407,12 @@ var DOWNLOADS = {
   var queued = false;
   function paint() {
     queued = false;
-    var vh = window.innerHeight, probe = window.scrollY + vh * 0.55, zone = vh * 0.45, i = 0, c, k;
+    var vh = window.innerHeight, probe = window.scrollY + vh * 0.6, zone = vh * 0.28, i = 0, c, k;
     for (k = 0; k < stops.length; k++) if (stops[k].el.getBoundingClientRect().top + window.scrollY <= probe) i = k;
     c = stops[i].c;
     var next = stops[i + 1];
     if (next) {
-      var edge = next.el.getBoundingClientRect().top + window.scrollY, t = Math.min(1, Math.max(0, (probe - (edge - zone)) / zone));
+      var edge = next.el.getBoundingClientRect().top + window.scrollY, t = Math.min(1, Math.max(0, (probe - (edge - zone / 2)) / zone));
       t = ease(t);
       c = c.map(function (v, j) { return Math.round(v + (next.c[j] - v) * t); });
     }
