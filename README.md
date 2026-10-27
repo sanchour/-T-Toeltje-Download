@@ -48,6 +48,6 @@ Zet de deellink bij `DOWNLOADS` als `mac: "…"`. De Mac-knop en de Mac-stappen 
 - `img/`: logo, pictogram en vier schermafbeeldingen van de app (WebP). Nieuwe maken: open de app, maak een schermafbeelding van 1440×900 en zet hem om naar WebP.
 
 ## Vormgeving
-De pagina volgt de huisstijl 2027 (ALEX ANDER): Rubik One en Atkinson Hyperlegible (in `fonts/`), logo's in `img/logo-2027-*.png`.
+De pagina volgt de stijl PONT-Noord (ALEX ANDER-logo): Rubik One en Atkinson Hyperlegible (in `fonts/`), logo's in `img/logo-2027-*.png`.
 De achtergrond wisselt tijdens het scrollen: elk blok met `data-bg="#…"` begint een nieuwe kleur, en het script onderaan laat de kleur bij de rand van dat blok kort overlopen. Nu vier kleuren: paars (intro en cijfers), geel (Wat is het), cyaan (voorbeelden), blauw (installeren tot en met de footer). Meer of minder kleuren = `data-bg` toevoegen of weghalen.
 Overdracht en plan voor het hele product: `docs/OVERDRACHT.md` en `docs/PLAN-HUISSTIJL-2027.md` in de repo `-T-Toeltje`.
