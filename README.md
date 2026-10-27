@@ -1,6 +1,6 @@
-# T Toeltje downloaden
+# ‘T Toeltje 1.2 downloaden
 
-De downloadpagina van de desktop-app T Toeltje (Alexander Impact).
+De downloadpagina van de desktop-app ‘T Toeltje 1.2 (Alexander Impact).
 De pagina staat op GitHub Pages: https://sanchour.github.io/-T-Toeltje-Download/
 
 Twee repo's:
@@ -33,7 +33,7 @@ De .exe-bestanden staan **niet op GitHub**, maar op OneDrive of Google Drive. De
 2. Vervang de bestanden op dezelfde plek, zodat de link hetzelfde blijft:
    - Google Drive: rechtermuisknop op het bestand → Bestandsgegevens → **Versies beheren** → Nieuwe versie uploaden.
    - OneDrive: upload het nieuwe bestand met precies dezelfde naam in dezelfde map en kies **Vervangen**.
-3. Pas in `index.html` het versienummer aan (zoek op `1.0.0`, staat er twee keer in).
+3. Pas in `index.html` het versienummer aan (zoek op `1.2.0`, staat er twee keer in).
 
 ## Mac-versie
 
