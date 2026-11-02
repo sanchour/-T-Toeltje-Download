@@ -1,6 +1,6 @@
-# ‘T Toeltje 1.2.2 downloaden
+# ‘T Toeltje 1.2.3 downloaden
 
-De downloadpagina van de desktop-app ‘T Toeltje 1.2.2 (Alexander Impact).
+De downloadpagina van de desktop-app ‘T Toeltje 1.2.3 (Alexander Impact).
 De pagina staat op GitHub Pages: https://sanchour.github.io/-T-Toeltje-Download/
 
 Twee repo's:
